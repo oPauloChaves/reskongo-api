@@ -9,7 +9,7 @@ const env = process.env.NODE_ENV || 'development';
 const defaultConfig = {
   root: process.cwd(),
   env: 'production',
-  jwtScret: 'xCLjgRFBunBugeTjo2N4BOVkdisHGMmnBfBGrPvqxEFuzD6VWg7trCesdQvEN0w',
+  jwtSecret: 'xCLjgRFBunBugeTjo2N4BOVkdisHGMmnBfBGrPvqxEFuzD6VWg7trCesdQvEN0w',
   port: 3000,
   db: 'mongodb://localhost/reskongo'
 }
