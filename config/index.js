@@ -2,9 +2,9 @@
  * Generate secret key: https://www.grc.com/passwords.htm
  */
 
-const path = require('path');
+const path = require('path')
 
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'development'
 
 const defaultConfig = {
   root: process.cwd(),
@@ -26,4 +26,4 @@ const config = {
   }
 }
 
-module.exports = Object.assign(defaultConfig, config[env]);
+module.exports = Object.assign(defaultConfig, config[env])
