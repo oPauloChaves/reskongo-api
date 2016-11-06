@@ -5,8 +5,8 @@ const authRoutes = require('./auth')
 const router = express.Router()
 
 /** GET /health-check - Check service health */
-router.get('/health-check', (req, res) =>
-  res.send('OK')
+router.get('/', (req, res) =>
+  res.send('API is running')
 )
 
 // mount user routes at /users

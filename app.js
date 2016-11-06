@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const compress = require('compression')
 const methodOverride = require('method-override')
 const cors = require('cors')
+const db = require('./config/db')
 const config = require('./config')
 const routes = require('./routes')
 

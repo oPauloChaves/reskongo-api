@@ -18,7 +18,8 @@ const config = {
   production: {},
   development: {
     env: 'development',
-    db: 'mongodb://localhost/reskongo-dev'
+    db: 'mongodb://localhost/reskongo-dev',
+    MONGOOSE_DEBUG: true
   },
   test: {
     db: 'mongodb://localhost/reskongo-test',
