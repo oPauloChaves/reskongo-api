@@ -8,7 +8,4 @@ const router = express.Router();
 router.route('/login')
   .post(authCtrl.login)
 
-router.route('/random-numer')
-  .get(expressJwt({ secret: config.jwtSecret }), authCtrl.getRandomNumber)
-
 module.exports = router

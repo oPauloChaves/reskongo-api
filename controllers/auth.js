@@ -22,11 +22,4 @@ function login(req, res, next) {
   next(err)
 }
 
-function getRandomNumber(req, res) {
-  return res.json({
-    user: req.user,
-    num: Math.random() * 100
-  });
-}
-
-module.exports = { login, getRandomNumber }
+module.exports = { login }
