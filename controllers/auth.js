@@ -1,25 +1,43 @@
 const jwt = require('jsonwebtoken')
 const config = require('../config')
-
-const user = {
-  username: 'paulo',
-  password: 'express'
-}
+const User = require('../models/user')
 
 function login(req, res, next) {
-  if (req.body.username === user.username && req.body.password === user.password) {
-    const token = jwt.sign({
-      username: user.username
-    }, config.jwtSecret);
-    return res.json({
-      token,
-      username: user.username
-    })
+
+  const reqUser = {
+    email: req.body.email,
+    password: req.body.password
   }
 
-  var err = new Error('Authentication error')
-  err.status = 401
-  next(err)
+  User.getByEmail(reqUser.email)
+    .then((user) => {
+      if (!user) {
+        let error = new Error(`Email ${reqUser.email} not found.`)
+        error.status = 422
+        return next(error)
+      }
+
+      user.comparePassword(reqUser.password, (err, isMatch) => {
+        if (err) {
+          return next(err)
+        }
+        if (!isMatch) {
+          let error = new Error(`Invalide email or password`)
+          error.status = 401
+          return next(error)
+        }
+
+        const token = jwt.sign({
+          email: user.email
+        }, config.jwtSecret)
+
+        return res.json({
+          token,
+          email: user.email
+        })
+      })
+    })
+    .catch(e => next(e))
 }
 
 module.exports = { login }
