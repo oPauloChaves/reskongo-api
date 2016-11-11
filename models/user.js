@@ -1,6 +1,6 @@
 const Promise = require('bluebird')
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
+const passwd = require('../utils/password')
 const Schema = mongoose.Schema
 
 const UserSchema = new mongoose.Schema({
@@ -14,9 +14,9 @@ const UserSchema = new mongoose.Schema({
     unique: true
   },
   password: {
-    type: String,
+    type: Schema.Types.Mixed,
     required: true
-  }
+  },
 }, { timestamps: true })
 
 /**
@@ -27,21 +27,16 @@ UserSchema.pre('save', function (next) {
   if (!user.isModified('password')) {
     return next()
   }
-  bcrypt.genSalt(10, function(err, salt) {
-    bcrypt.hash(user.password, salt, function(err, hash) {
-      if (err) return next()
-      user.password = hash
-      next()
-    })
-  })
+  const saltHash = passwd.saltHashPassword(user.password)
+  console.log(saltHash)
+  user.password = saltHash
+  next()
 })
 
 UserSchema.methods = {
-  comparePassword(passwd, cb) {
-    console.log(passwd, this)
-    bcrypt.compare(passwd, this.password, function(err, isMatch) {
-      cb(err, isMatch)
-    })
+  comparePassword(candidatePassword, cb) {
+    const isMatch = passwd.comparePassword(candidatePassword, this.password)
+    cb(null, isMatch)
   }
 }
 
