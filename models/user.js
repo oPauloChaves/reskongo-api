@@ -1,4 +1,3 @@
-const Promise = require('bluebird')
 const mongoose = require('mongoose')
 const passwd = require('../utils/password')
 const Schema = mongoose.Schema
@@ -50,7 +49,7 @@ UserSchema.statics = {
 
         let error = new Error('No such user exists!')
         error.status = 404
-        return Promise.reject(error)
+        return global.Promise.reject(error)
       })
   },
 
