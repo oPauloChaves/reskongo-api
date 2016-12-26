@@ -1,13 +1,13 @@
-const Promise = require('bluebird')
+// const Promise = require('bluebird')
 const jwt = require('jsonwebtoken')
 const config = require('../config')
 const User = require('../models/user')
 
-function get(req, res) {
+function get (req, res) {
   return res.json(req.user)
 }
 
-function save(req, res, next) {
+function save (req, res, next) {
   const user = new User({
     name: req.body.name,
     email: req.body.email,
@@ -24,8 +24,9 @@ function save(req, res, next) {
 
       user.save((err) => {
         if (err) {
-          if (err.name === 'ValidationError')
+          if (err.name === 'ValidationError') {
             err.status = 400
+          }
 
           return next(err)
         }
@@ -46,7 +47,7 @@ function save(req, res, next) {
 /**
  * Load an user given his ID and append him to the request
  */
-function findById(req, res, next, id) {
+function findById (req, res, next, id) {
   User.get(id)
     .then((user) => {
       req.user = user
@@ -58,7 +59,7 @@ function findById(req, res, next, id) {
 /**
  * Get user list
  */
-function findAll(req, res, next) {
+function findAll (req, res, next) {
   const { limit = 50, skip = 0 } = req.query
   User.list({ limit, skip })
     .then(users => res.json(users))

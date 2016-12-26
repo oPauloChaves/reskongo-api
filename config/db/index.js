@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const config = require('../')
 
-// plugin bluebird promise in mongoose
 mongoose.Promise = global.Promise
 
 // connect to mongo db

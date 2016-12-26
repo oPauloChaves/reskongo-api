@@ -1,6 +1,6 @@
 const express = require('express')
-const path = require('path')
-const favicon = require('serve-favicon')
+// const path = require('path')
+// const favicon = require('serve-favicon')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(cookieParser())
 app.use(compress())
-app.use(methodOverride());
+app.use(methodOverride())
 
 app.use(cors())
 
@@ -30,7 +30,7 @@ app.use(cors())
 app.use('/api', routes)
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found')
   err.status = 404
   next(err)
@@ -41,7 +41,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (config.env === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use(function (err, req, res, next) {
     res.status(err.status || 500)
     res.json({
       error: {
@@ -54,7 +54,7 @@ if (config.env === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 500)
   res.json({
     error: {

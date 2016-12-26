@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: Schema.Types.Mixed,
     required: true
-  },
+  }
 }, { timestamps: true })
 
 /**
@@ -33,7 +33,7 @@ UserSchema.pre('save', function (next) {
 })
 
 UserSchema.methods = {
-  comparePassword(candidatePassword, cb) {
+  comparePassword (candidatePassword, cb) {
     const isMatch = passwd.comparePassword(candidatePassword, this.password)
     cb(null, isMatch)
   }
@@ -41,7 +41,7 @@ UserSchema.methods = {
 
 UserSchema.statics = {
 
-  get(id) {
+  get (id) {
     return this.findById(id)
       .exec()
       .then((user) => {
@@ -53,7 +53,7 @@ UserSchema.statics = {
       })
   },
 
-  list({ skip = 0, limit = 50 } = {}) {
+  list ({ skip = 0, limit = 50 } = {}) {
     return this.find()
       .sort({ createdAt: -1 })
       .skip(skip)
@@ -61,7 +61,7 @@ UserSchema.statics = {
       .exec()
   },
 
-  emailExists(email) {
+  emailExists (email) {
     return this.findOne({ email })
       .exec()
       .then((user) => {
@@ -71,7 +71,7 @@ UserSchema.statics = {
       })
   },
 
-  getByEmail(email) {
+  getByEmail (email) {
     return this.findOne({ email })
       .exec()
       .then((user) => {

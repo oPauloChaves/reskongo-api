@@ -2,8 +2,7 @@ const jwt = require('jsonwebtoken')
 const config = require('../config')
 const User = require('../models/user')
 
-function login(req, res, next) {
-
+function login (req, res, next) {
   const reqUser = {
     email: req.body.email,
     password: req.body.password
@@ -22,7 +21,7 @@ function login(req, res, next) {
           return next(err)
         }
         if (!isMatch) {
-          let error = new Error(`Invalide email or password`)
+          let error = new Error(`Invalid email or password`)
           error.status = 401
           return next(error)
         }

@@ -2,8 +2,7 @@
  * Generate secret key: https://www.grc.com/passwords.htm
  */
 
-const path = require('path')
-
+// const path = require('path')
 const env = process.env.NODE_ENV || 'development'
 
 const defaultConfig = {
