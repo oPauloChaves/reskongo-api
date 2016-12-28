@@ -10,18 +10,18 @@ const defaultConfig = {
   env: 'production',
   jwtSecret: 'xCLjgRFBunBugeTjo2N4BOVkdisHGMmnBfBGrPvqxEFuzD6VWg7trCesdQvEN0w',
   port: 3000,
-  db: 'mongodb://localhost/reskongo'
+  db: 'mongodb://localhost/rescongoal'
 }
 
 const config = {
   production: {},
   development: {
     env: 'development',
-    db: 'mongodb://localhost/reskongo-dev',
+    db: 'mongodb://localhost/rescongoal-dev',
     MONGOOSE_DEBUG: true
   },
   test: {
-    db: 'mongodb://localhost/reskongo-test',
+    db: 'mongodb://localhost/rescongoal-test',
     env: 'test'
   }
 }
