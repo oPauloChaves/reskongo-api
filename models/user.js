@@ -15,7 +15,8 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: Schema.Types.Mixed,
     required: true
-  }
+  },
+  projects: [Schema.Types.ObjectId]
 }, { timestamps: true })
 
 /**
