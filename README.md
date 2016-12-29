@@ -22,3 +22,7 @@ yarn run dev
 ```sh
 yarn start
 ```
+
+
+### Useful resources
+- [Managing Environment Variables in Node.js](https://medium.com/@rafaelvidaurre/managing-environment-variables-in-node-js-2cb45a55195f)
