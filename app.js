@@ -1,21 +1,39 @@
 const express = require('express')
-// const path = require('path')
-// const favicon = require('serve-favicon')
+const dotenv = require('dotenv')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const compress = require('compression')
 const methodOverride = require('method-override')
 const cors = require('cors')
-const db = require('./config/db')
-const config = require('./config')
-const routes = require('./routes')
+const mongoose = require('mongoose')
 
+/**
+ * Load environment variables from .env file, where API keys and passwords are configured.
+ */
+dotenv.load()
+
+/**
+ * Create Express server.
+ */
 const app = express()
 
-if (config.env === 'development') {
+if (process.env.NODE_ENV === 'development') {
   app.use(logger('dev'))
 }
+
+const routes = require('./routes')
+
+/**
+ * Connect to MongoDB.
+ */
+mongoose.Promise = global.Promise
+mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI, {
+  server: { socketOptions: { keepAlive: 1 } }
+})
+mongoose.connection.on('error', () => {
+  throw new Error(`MongoDB connection error. Please make sure MongoDB is running.`)
+})
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -40,7 +58,7 @@ app.use(function (req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (config.env === 'development') {
+if (process.env.NODE_ENV === 'development') {
   app.use(function (err, req, res, next) {
     res.status(err.status || 500)
     res.json({

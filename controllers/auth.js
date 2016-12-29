@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-const config = require('../config')
 const User = require('../models/user')
 
 function login (req, res, next) {
@@ -28,7 +27,7 @@ function login (req, res, next) {
 
         const token = jwt.sign({
           email: user.email
-        }, config.jwtSecret)
+        }, process.env.JWT_SECRET)
 
         return res.json({
           token,

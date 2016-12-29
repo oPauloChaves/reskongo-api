@@ -1,6 +1,4 @@
-// const Promise = require('bluebird')
 const jwt = require('jsonwebtoken')
-const config = require('../config')
 const User = require('../models/user')
 
 function get (req, res) {
@@ -33,7 +31,7 @@ function save (req, res, next) {
 
         const token = jwt.sign({
           email: user.email
-        }, config.jwtSecret)
+        }, process.env.JWT_SECRET)
 
         return res.json({
           token,

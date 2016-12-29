@@ -26,3 +26,4 @@ yarn start
 
 ### Useful resources
 - [Managing Environment Variables in Node.js](https://medium.com/@rafaelvidaurre/managing-environment-variables-in-node-js-2cb45a55195f)
+- [sahat/hackathon-starter](https://github.com/sahat/hackathon-starter/)

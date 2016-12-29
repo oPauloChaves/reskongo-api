@@ -28,7 +28,6 @@ UserSchema.pre('save', function (next) {
     return next()
   }
   const saltHash = passwd.saltHashPassword(user.password)
-  console.log(saltHash)
   user.password = saltHash
   next()
 })
