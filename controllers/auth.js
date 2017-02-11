@@ -26,6 +26,7 @@ function login (req, res, next) {
         }
 
         const token = jwt.sign({
+          id: user._id,
           email: user.email
         }, process.env.JWT_SECRET)
 
