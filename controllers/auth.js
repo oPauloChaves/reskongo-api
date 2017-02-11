@@ -25,10 +25,14 @@ function login (req, res, next) {
           return next(error)
         }
 
+        // This is replicated in controllers/users as well when logging in
+        // TODO refactor this logic to a function and refer to it from both places
         const token = jwt.sign({
           id: user._id,
           email: user.email
-        }, process.env.JWT_SECRET)
+        }, process.env.JWT_SECRET, {
+          expiresIn: '1d'
+        })
 
         return res.json({
           token,

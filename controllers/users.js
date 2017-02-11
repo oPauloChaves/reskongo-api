@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
+const Project = require('../models/project')
 
 function get (req, res) {
   return res.json(req.user)
@@ -20,25 +21,33 @@ function save (req, res, next) {
         return next(error)
       }
 
-      user.save((err) => {
-        if (err) {
+      return user.save()
+        .then(user => {
+          // Create a default project for this new user
+          new Project({
+            name: 'Sample Project',
+            description: 'Enjoy Reskongoal Project Management',
+            ownerId: user._id
+          }).save()
+
+          const token = jwt.sign({
+            id: user._id,
+            email: user.email
+          }, process.env.JWT_SECRET, {
+            expiresIn: '1d'
+          })
+
+          return res.json({
+            token,
+            email: user.email
+          })
+        })
+        .catch(err => {
           if (err.name === 'ValidationError') {
             err.status = 400
           }
-
           return next(err)
-        }
-
-        const token = jwt.sign({
-          id: user._id,
-          email: user.email
-        }, process.env.JWT_SECRET)
-
-        return res.json({
-          token,
-          email: user.email
         })
-      })
     })
     .catch(e => next(e))
 }
