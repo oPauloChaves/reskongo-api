@@ -1,4 +1,5 @@
 const Project = require('../models/project')
+const Task = require('../models/task')
 
 function save (req, res, next) {
   const project = new Project({
@@ -25,8 +26,14 @@ function save (req, res, next) {
  * Load a project given its id and user id
  */
 function findById (req, res, next) {
-  Project.get(req.param.id, req.user.id)
-    .then(project => res.json(project))
+  Project.get(req.params.projectId, req.user.id)
+    .then(project => {
+      return Task.findProjectTasks(req.params.projectId, req.user.id)
+        .then(tasks => {
+          res.json({ project, tasks })
+        })
+        .catch(err => next(err))
+    })
     .catch(e => next(e))
 }
 

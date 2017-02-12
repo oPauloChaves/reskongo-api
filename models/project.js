@@ -54,10 +54,10 @@ ProjectSchema.statics = {
    * @param id project's id
    * @param ownerId user's id
    *
-   * TODO: Allow a user to access projects that have been shared with him
+   * TODO: Allow a user to access projects that have been shared with him.
    */
   get (id, ownerId) {
-    return this.findOne({ id, ownerId })
+    return this.findOne({ _id: id, ownerId })
       .exec()
       .then((project) => {
         if (project) return project
