@@ -42,7 +42,7 @@ yarn start
         project. Possible roles are DEV|ADMIN|CLIENT. It he doesn't provide a role, by default 
         the new member will be a DEV.
   - [ ] A project may have up to 5 members
-- [ ] Add validation with express-validator
+- [X] Add validation with express-validator
 
 -------------------------------------
 
