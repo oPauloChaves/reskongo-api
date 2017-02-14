@@ -26,7 +26,11 @@ if (process.env.NODE_ENV === 'development') {
  * Connect to MongoDB.
  */
 mongoose.Promise = global.Promise
-mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI, {
+let mongoUri = process.env.MONGODB_URI || process.env.MONGOLAB_URI
+if (process.env.NODE_ENV === 'development') {
+  mongoUri += '_dev'
+}
+mongoose.connect(mongoUri, {
   server: { socketOptions: { keepAlive: 1 } }
 })
 mongoose.connection.on('error', () => {
