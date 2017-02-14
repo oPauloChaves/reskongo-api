@@ -62,16 +62,16 @@ ProjectSchema.pre('save', function (next) {
 ProjectSchema.statics = {
 
   /**
-   * Get the project of specific user. A user may only access his own projects.
-   * That's why in addition to the project's id it is also necessary to pass
-   * the user's id to ensure that constraint
-   * @param id project's id
-   * @param ownerId user's id
+   * Find the project given the project's id and user's id. A user may only access projects
+   * in which he is a member. To fulfill this requirement, query a project by id and check if the
+   * userId is in the members array.
+   * @param projId project's id
+   * @param userId user's id
    *
    * TODO: Allow a user to access projects that have been shared with him.
    */
-  get (id, ownerId) {
-    return this.findOne({ _id: id, ownerId })
+  get (projId, userId) {
+    return this.findOne({ _id: projId, 'team._id': userId })
       .exec()
       .then((project) => {
         if (project) return project
@@ -83,14 +83,15 @@ ProjectSchema.statics = {
   },
 
   /**
-   * Find all project of a user given his id and returns
+   * Find all projects where the current user is a member in. Returns
    * a list of projects in descendant order by default.
-   * @param ownerId owner's id
+   *
+   * @param userId user id
    * @param orderBy the order in which the registers should be returned.
-   *        1 for asc and -1 for desc. Order desc is default.
+   *        1 for asc and -1 for desc. Order desc is default. Ordered by last updated (updatedAt)
    */
-  findByOwnerId (ownerId, orderBy = -1) {
-    return this.find({ ownerId })
+  findByOwnerId (userId, orderBy = -1) {
+    return this.find({ 'team._id': userId })
       .sort({ updatedAt: orderBy })
       .exec()
   }

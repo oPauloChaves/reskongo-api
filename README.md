@@ -43,6 +43,7 @@ yarn start
         the new member will be a DEV.
   - [ ] A project may have up to 5 members
 - [X] Add validation with express-validator
+- [ ] Seed the app with some data to ease tests in dev mode
 
 -------------------------------------
 
