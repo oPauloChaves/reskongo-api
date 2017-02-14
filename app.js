@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const compress = require('compression')
 const methodOverride = require('method-override')
 const cors = require('cors')
+const expressValidator = require('express-validator')
 const mongoose = require('mongoose')
 
 /**
@@ -39,6 +40,7 @@ mongoose.connection.on('error', () => {
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(expressValidator())
 
 app.use(cookieParser())
 app.use(compress())

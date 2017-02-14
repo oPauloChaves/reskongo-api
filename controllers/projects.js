@@ -2,23 +2,32 @@ const Project = require('../models/project')
 const Task = require('../models/task')
 
 function save (req, res, next) {
-  const project = new Project({
-    name: req.body.name,
-    description: req.body.description,
-    backgroundColor: req.body.backgroundColor,
-    ownerId: req.user.id
-  })
+  req.assert('name', 'Name is required').notEmpty()
 
-  project.save((err, project) => {
-    if (err) {
-      if (err.name === 'ValidationError') {
-        err.status = 400
-      }
-
-      return next(err)
+  req.getValidationResult().then(function (result) {
+    if (!result.isEmpty()) {
+      res.status(400).json({ errors: result.array() })
+      return
     }
 
-    return res.json(project)
+    const project = new Project({
+      name: req.body.name,
+      description: req.body.description,
+      backgroundColor: req.body.backgroundColor,
+      ownerId: req.user.id
+    })
+
+    project.save((err, project) => {
+      if (err) {
+        if (err.name === 'ValidationError') {
+          err.status = 400
+        }
+
+        return next(err)
+      }
+
+      return res.json(project)
+    })
   })
 }
 

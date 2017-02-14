@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
+const { COLORS, ROLES } = require('./constants')
 const Schema = mongoose.Schema
-
-const colors = ['white', 'black', 'orange', 'blue', 'green', 'yellow', 'purple', 'red', 'pink']
 
 const ListSchema = new Schema({
   name: { type: String, required: true },
@@ -16,8 +15,8 @@ const MemberSchema = new Schema({
   role: {
     type: String,
     required: true,
-    enum: ['ADMIN', 'DEV', 'CLIENT'],
-    'default': 'DEV'
+    enum: ROLES,
+    'default': ROLES[1]
   }
 })
 
@@ -30,8 +29,8 @@ const ProjectSchema = new Schema({
   backgroundColor: {
     type: String,
     lowercase: true,
-    enum: colors,
-    default: colors[0] // default white
+    enum: COLORS,
+    default: COLORS[0] // default white
   },
   ownerId: { type: Schema.Types.ObjectId, required: true },
   lists: [ListSchema],
