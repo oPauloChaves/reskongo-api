@@ -9,6 +9,18 @@ const ListSchema = new Schema({
   createdAt: { type: Date, required: true, default: Date.now() }
 })
 
+// _id = user's _id
+const MemberSchema = new Schema({
+  owner: Boolean, // only the user who creates the project has this value set to true
+  joinedAt: { type: Date, required: true, default: Date.now() },
+  role: {
+    type: String,
+    required: true,
+    enum: ['ADMIN', 'DEV', 'CLIENT'],
+    'default': 'DEV'
+  }
+})
+
 const ProjectSchema = new Schema({
   name: {
     type: String,
@@ -23,11 +35,7 @@ const ProjectSchema = new Schema({
   },
   ownerId: { type: Schema.Types.ObjectId, required: true },
   lists: [ListSchema],
-  team: [{
-    userId: { type: Number },
-    joinedAt: Date,
-    role: [{ type: String, enum: ['admin', 'dev'] }]
-  }]
+  team: [MemberSchema]
 }, { timestamps: true })
 
 /**
@@ -41,6 +49,13 @@ ProjectSchema.pre('save', function (next) {
       { pos: 1, name: 'Doing' },
       { pos: 2, name: 'Done' }
     ]
+
+    // Add the project's owner as a member in its own project
+    project.team = [{
+      _id: project.ownerId,
+      owner: true,
+      role: 'ADMIN'
+    }]
   }
   next()
 })
