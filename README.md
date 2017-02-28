@@ -95,6 +95,89 @@ yarn start
   ```
 </details>
 
+<details>
+<summary>:black_small_square: GET /api/projects - List projects of the user</summary>
+
+- Request header
+  - `Authorization: Bearer your-token`
+- Response
+
+  ```json
+  [
+    {
+      "_id": "58b5a16d3d80922497cc550a",
+      "name": "Sample Project",
+      "description": "Enjoy Reskongoal Project Management",
+      "ownerId": "58b5a16d3d80922497cc5509",
+      "team" : [],
+      "lists": [{}],
+      "backgroundColor": "white"
+    }
+  ]
+  ```
+
+</details>
+
+<details>
+<summary>:black_small_square: POST /api/projects - Add a new project</summary>
+
+- Request header
+  - `Authorization: Bearer your-token`
+- Request
+
+  ```json
+  {
+    "name": "Reskongoal Project",
+    "description": "Project Management Web App",
+    "backgroundColor": "blue"
+  }
+  ```
+
+- Response
+
+  ```json
+  {
+    "__v": 0,
+    "updatedAt": "2017-02-28T17:28:44.733Z",
+    "createdAt": "2017-02-28T17:28:44.733Z",
+    "name": "Reskongoal Project",
+    "description": "Project Management Web App",
+    "ownerId": "58b5a16d3d80922497cc5509",
+    "_id": "58b5b34cf691042eea4e93e5",
+    "team": [
+      {
+        "_id": "58b5a16d3d80922497cc5509",
+        "owner": true,
+        "role": "ADMIN",
+        "joinedAt": "2017-02-28T17:18:43.487Z"
+      }
+    ],
+    "lists": [
+      {
+        "pos": 0,
+        "name": "To Do",
+        "_id": "58b5b34cf691042eea4e93e8",
+        "createdAt": "2017-02-28T17:18:43.487Z"
+      },
+      {
+        "pos": 1,
+        "name": "Doing",
+        "_id": "58b5b34cf691042eea4e93e7",
+        "createdAt": "2017-02-28T17:18:43.487Z"
+      },
+      {
+        "pos": 2,
+        "name": "Done",
+        "_id": "58b5b34cf691042eea4e93e6",
+        "createdAt": "2017-02-28T17:18:43.487Z"
+      }
+    ],
+    "backgroundColor": "blue"
+  }
+  ```
+
+</details>
+
 -------------------------------------
 
 ## TODO
