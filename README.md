@@ -1,11 +1,11 @@
-# reskongo-api
-REST API for Reskongo Project Management Web App
+# Reskongoal Project
+REST API for Reskongoal Project Management Web App
 
 ## Quick start
 
 ### Clone the project
 ```sh
-git clone git@github.com:paulochavesbr/reskongo-api.git
+git clone git@github.com:paulochavesbr/reskongoal-api.git
 ```
 
 ### Install all dependencies
@@ -26,15 +26,52 @@ yarn start
 -------------------------------------
 
 ## API Endpoints
+
+- All API endpoints are prefixed with `/api`
+- The API only works with JSON
+- Only these endpoints don't need authentication:
+  - `/`
+  - `/auth/login`
+- For all the other endpoints you need to authenticate. You need to set a header `Authorization` with `Bearer your-token`
+
 </summary>
 <details>
-<summary><b>GET /api</b> - Check if the API is up and running</summary>
+<summary><b>/</b> GET - Check if the API is up and running</summary>
 
 </details>
 
 <details>
-<summary><b>POST /api/users</b> - Register a new user</summary>
+<summary><b>/auth/login</b> POST - Logs a user in</summary>
 
+- Request body
+
+  ```json
+  {
+    "email": "paul@email.com",
+    "password": "12345"
+  }
+  ```
+
+- Response
+
+  ```json
+  {
+    "token": "your-token",
+    "email": "paul@email.com"
+  }
+  ```
+
+</details>
+
+<details>
+<summary><b>/users</b> POST - Register a new user</summary>
+
+- Constraints
+  - The user email is unique
+- Fields
+  - `name [required]`
+  - `email [required]`
+  - `password [required]`
 - Request body
 
   ```json
@@ -58,10 +95,8 @@ yarn start
 </details>
 
 <details>
-<summary><b>GET /api/users</b> - List users</summary>
+<summary><b>/users</b> GET - List users</summary>
 
-- Request header
-  - `Authorization: Bearer your-token`
 - Response
 
   ```json
@@ -78,17 +113,14 @@ yarn start
 </details>
 
 <details>
-<summary><b>GET /api/users/{userId}</b> - Find a user by his id</summary>
+<summary><b>/users/{userId}</b> GET - Find a user by his id</summary>
 
-- Request header
-  - `Authorization: Bearer your-token`
+- All users can be found by providing his id
 - Response
 
   ```json
   {
     "_id": "58b59c61c537a718e6255bf5",
-    "updatedAt": "2017-02-28T15:50:57.310Z",
-    "createdAt": "2017-02-28T15:50:57.310Z",
     "name": "Paul",
     "email": "paul@email.com"
   }
@@ -96,10 +128,8 @@ yarn start
 </details>
 
 <details>
-<summary><b>GET /api/projects</b> - List projects of the user</summary>
+<summary><b>/projects</b> GET - List projects of the user and projects shared with him</summary>
 
-- Request header
-  - `Authorization: Bearer your-token`
 - Response
 
   ```json
@@ -119,17 +149,32 @@ yarn start
 </details>
 
 <details>
-<summary><b>POST /api/projects</b> - Add a new project</summary>
+<summary><b>/projects</b> POST - Add a new project</summary>
 
-- Request header
-  - `Authorization: Bearer your-token`
+- If `lists` is `null`, then no list is gonna be created for this project
+- If `lists` is omitted, then 3 default lists `To Do`, `Doing` and `Done` are gonna be created
+- The default `backgroundColor` is `white`
+- You may also inform members for the project
+- Fields
+  - `name [required]`
+  - `description`
+  - `backgroundColor`
+  - `lists`
+  - `team`
 - Request
 
   ```json
   {
     "name": "Reskongoal Project",
     "description": "Project Management Web App",
-    "backgroundColor": "blue"
+    "backgroundColor": "blue",
+    "lists": [
+      {"pos": 0, "name": "TODO"},
+      {"pos": 1, "name": "DOING"},
+    ],
+    "team": [
+      {"_id": "58b5a16d3d80922497cc550a"}
+    ]
   }
   ```
 
@@ -179,14 +224,18 @@ yarn start
 </details>
 
 <details>
-<summary><b>GET /api/projects/{projectId}</b> - Find a project by id</summary>
+<summary><b>/projects/{projectId}</b> GET - Find a project by id</summary>
 
 A user may access projects he owns or projects that have been shared with him
+
+- Response
+
+An array of projects
 
 </details>
 
 <details>
-<summary><b>POST /api/projects/{projectId}/team</b> - Add members to a project</summary>
+<summary><b>/projects/{projectId}/team</b> POST - Add members to a project</summary>
 
 - You may not add a member twice in the same project
 - Only the owner may add a member with ADMIN role in the project
@@ -196,6 +245,7 @@ A user may access projects he owns or projects that have been shared with him
   - `_id [required]`: member id
   - `role`: member role in the project
 - Request
+
   ```json
   [
     {"_id", "58b5b34cf691042eea4e93e6"},
@@ -206,7 +256,7 @@ A user may access projects he owns or projects that have been shared with him
 </details>
 
 <details>
-<summary><b>GET /api/projects/{projectId}/team</b> - List the members of a project</summary>
+<summary><b>/projects/{projectId}/team</b> GET - List the members of a project</summary>
 
 
 </details>
