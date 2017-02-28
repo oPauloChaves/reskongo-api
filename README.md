@@ -47,6 +47,7 @@ yarn start
 - Response
 
   - **201** - Created
+  
     ```json
     {
       "token": "your-token",
