@@ -247,10 +247,12 @@ An array of projects
 - Request
 
   ```json
-  [
-    {"_id": "58b5b34cf691042eea4e93e6"},
-    {"_id": "58b5b34cf691042eea4e93e6", "role": "ADMIN"},
-  ]
+  {
+    "team": [
+      {"_id": "58b5b34cf691042eea4e93e6"},
+      {"_id": "58b5b34cf691042eea4e93e7", "role": "ADMIN"},
+    ]
+  }
   ```
 
 </details>

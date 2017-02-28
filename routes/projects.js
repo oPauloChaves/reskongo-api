@@ -19,4 +19,9 @@ router.route('/:projectId')
 router.route('/:projectId/tasks')
   .post(expressJwt({ secret }), tasksCtrl.save)
 
+router.route('/:projectId/team')
+  .get(expressJwt({ secret }), projectsCtrl.getTeamByProject)
+
+  .post(expressJwt({ secret }), projectsCtrl.addMembersToTeam)
+
 module.exports = router
