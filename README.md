@@ -178,6 +178,39 @@ yarn start
 
 </details>
 
+<details>
+<summary><b>GET /api/projects/{projectId}</b> - Find a project by id</summary>
+
+A user may access projects he owns or projects that have been shared with him
+
+</details>
+
+<details>
+<summary><b>POST /api/projects/{projectId}/team</b> - Add members to a project</summary>
+
+- You may not add a member twice in the same project
+- Only the owner may add a member with ADMIN role in the project
+- Only an admin member may add other members to a project
+- The request body must be an array
+- Fields
+  - `_id [required]`: member id
+  - `role`: member role in the project
+- Request
+  ```json
+  [
+    {"_id", "58b5b34cf691042eea4e93e6"},
+    {"_id", "58b5b34cf691042eea4e93e6", "role": "ADMIN"},
+  ]
+  ```
+
+</details>
+
+<details>
+<summary><b>GET /api/projects/{projectId}/team</b> - List the members of a project</summary>
+
+
+</details>
+
 -------------------------------------
 
 ## TODO
