@@ -248,8 +248,8 @@ An array of projects
 
   ```json
   [
-    {"_id", "58b5b34cf691042eea4e93e6"},
-    {"_id", "58b5b34cf691042eea4e93e6", "role": "ADMIN"},
+    {"_id": "58b5b34cf691042eea4e93e6"},
+    {"_id": "58b5b34cf691042eea4e93e6", "role": "ADMIN"},
   ]
   ```
 
