@@ -42,7 +42,11 @@ UserSchema.methods = {
 UserSchema.statics = {
 
   get (id) {
-    return this.findById(id)
+    return this.findById(id, {
+      id: 1,
+      name: 1,
+      email: 1
+    })
       .exec()
       .then((user) => {
         if (user) return user
@@ -54,7 +58,11 @@ UserSchema.statics = {
   },
 
   list ({ skip = 0, limit = 50 } = {}) {
-    return this.find()
+    return this.find({}, {
+      id: 1,
+      name: 1,
+      email: 1
+    })
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
