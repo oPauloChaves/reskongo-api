@@ -27,7 +27,8 @@ yarn start
 
 ## TODO
 - [ ] Users
-  - [ ] Place the logic create the JWT in a single place to avoid DRY
+  - [X] Place the logic create the JWT in a single place to avoid DRY
+  - [ ] Select fields to display when a user is requested.
 - [ ] Add a new list to a project and its endpoint
 - [ ] Add members to a project
   - [X] To simplify coding, also add the project's owner in the member's array and mark him as
@@ -44,6 +45,7 @@ yarn start
   - [ ] A project may have up to 5 members
 - [X] Add validation with express-validator
 - [ ] Seed the app with some data to ease tests in dev mode
+- [ ] List endpoints and docs about them
 
 -------------------------------------
 

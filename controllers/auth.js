@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+const { jwtSign } = require('../utils/utils')
 const User = require('../models/user')
 
 function login (req, res, next) {
@@ -25,17 +25,8 @@ function login (req, res, next) {
           return next(error)
         }
 
-        // This is replicated in controllers/users as well when logging in
-        // TODO refactor this logic to a function and refer to it from both places
-        const token = jwt.sign({
-          id: user._id,
-          email: user.email
-        }, process.env.JWT_SECRET, {
-          expiresIn: '1d'
-        })
-
         return res.json({
-          token,
+          token: jwtSign(user),
           email: user.email
         })
       })

@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 const Project = require('../models/project')
+const { jwtSign } = require('../utils/utils')
 
 function get (req, res) {
   return res.json(req.user)
@@ -30,15 +30,8 @@ function save (req, res, next) {
             ownerId: user._id
           }).save()
 
-          const token = jwt.sign({
-            id: user._id,
-            email: user.email
-          }, process.env.JWT_SECRET, {
-            expiresIn: '1d'
-          })
-
           return res.json({
-            token,
+            token: jwtSign(user),
             email: user.email
           })
         })
