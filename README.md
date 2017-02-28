@@ -28,12 +28,12 @@ yarn start
 ## API Endpoints
 </summary>
 <details>
-<summary>:black_small_square: GET /api - Check if the API is up and running</summary>
+<summary><b>GET /api</b> - Check if the API is up and running</summary>
 
 </details>
 
 <details>
-<summary>:black_small_square: POST /api/users - Register a new user</summary>
+<summary><b>POST /api/users</b> - Register a new user</summary>
 
 - Request body
 
@@ -58,7 +58,7 @@ yarn start
 </details>
 
 <details>
-<summary>:black_small_square: GET /api/users - List users</summary>
+<summary><b>GET /api/users</b> - List users</summary>
 
 - Request header
   - `Authorization: Bearer your-token`
@@ -78,7 +78,7 @@ yarn start
 </details>
 
 <details>
-<summary>:black_small_square: GET /api/users/{userId} - Find a user by his id</summary>
+<summary><b>GET /api/users/{userId}</b> - Find a user by his id</summary>
 
 - Request header
   - `Authorization: Bearer your-token`
@@ -96,7 +96,7 @@ yarn start
 </details>
 
 <details>
-<summary>:black_small_square: GET /api/projects - List projects of the user</summary>
+<summary><b>GET /api/projects</b> - List projects of the user</summary>
 
 - Request header
   - `Authorization: Bearer your-token`
@@ -119,7 +119,7 @@ yarn start
 </details>
 
 <details>
-<summary>:black_small_square: POST /api/projects - Add a new project</summary>
+<summary><b>POST /api/projects</b> - Add a new project</summary>
 
 - Request header
   - `Authorization: Bearer your-token`
